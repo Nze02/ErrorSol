@@ -4,5 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Models\" />
+    <Folder Include="Entities\Data Transfer Objects\" />
+  </ItemGroup>
+
 
 </Project>
