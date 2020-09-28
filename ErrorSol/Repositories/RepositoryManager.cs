@@ -43,5 +43,7 @@ namespace ErrorSol.Repositories
                 return employeeRepository;
             }
         }
+        public Task SaveAsync() => _db.SaveChangesAsync();
+
     }
 }
