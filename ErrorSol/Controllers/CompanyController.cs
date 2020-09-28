@@ -85,16 +85,34 @@ namespace ErrorSol.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCompany([FromBody] Company company)
         {
+            List<Exception> errors = new List<Exception>();
+            List<Company> responseData = new List<Company>();
+
             if (company == null)
             {
-                return BadRequest("Company object is null");
+                Exception exception = new Exception("");
+                errors.Add(exception);
+                return BadRequest(new Response<Company>
+                {
+                    Errors = errors,
+                    Result = null
+                });
             }
 
 
             _dbManager.Company.CreateCompany(company);
             await _dbManager.SaveAsync();
 
-            return CreatedAtRoute("CompanyById", new { Id = company.Id }, company);
+            responseData.Add(company);
+            return CreatedAtRoute("CompanyById", new { Id = company.Id }, (new Response<Company>
+            {
+                Errors = null,
+                Result = new Result<Company>
+                {
+                    Message = "Company successfully created",
+                    Data = responseData
+                }
+            }));
         }
     }
 }
